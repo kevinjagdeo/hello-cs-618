@@ -7,6 +7,7 @@ import { getPostById } from '../api/posts.js'
 import { useEffect, useState } from 'react'
 import { postTrackEvent } from '../api/events.js'
 import { Helmet } from 'react-helmet-async'
+import { PostStats } from '../components/PostStats.jsx'
 import { getUserInfo } from '../api/users.js'
 export function ViewPost({ postId }) {
   const [session, setSession] = useState()
@@ -69,7 +70,14 @@ export function ViewPost({ postId }) {
       <Link to='/'>Back to main page</Link>
       <br />
       <hr />
-      {post ? <Post {...post} fullPost /> : `Post with id${postId} not found.`}
+      {post ? (
+        <div>
+          <Post {...post} fullPost />
+          <hr /> <PostStats postId={postId} />
+        </div>
+      ) : (
+        `Post with id ${postId} not found.`
+      )}
     </div>
   )
 }
