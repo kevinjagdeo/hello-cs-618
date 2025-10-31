@@ -1,0 +1,4 @@
+{
+  "schema": "https://curly-trout-q6g97x4q4xwfxrqj-3000.app.github.dev/graphql",
+  "documents": "src/api/graphql/**/*.{js,jsx}"
+}
