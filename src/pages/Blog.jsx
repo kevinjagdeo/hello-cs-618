@@ -8,7 +8,7 @@ import { useState } from 'react'
 //import { useQuery } from '@tanstack/react-query'
 //import { getPosts } from '../api/posts.js'
 import { useQuery as useGraphQLQuery } from '@apollo/client/react/index.js'
-import { GET_POSTS } from '../api/graphql/posts.js'
+import { GET_POSTS, GET_POSTS_BY_AUTHOR } from '../api/graphql/posts.js'
 
 export function Blog() {
   const [author, setAuthor] = useState('')
@@ -20,8 +20,11 @@ export function Blog() {
   })
   const posts = postsQuery.data ?? []*/
 
-  const postsQuery = useGraphQLQuery(GET_POSTS)
-  const posts = postsQuery.data?.posts ?? []
+  const postsQuery = useGraphQLQuery(author ? GET_POSTS_BY_AUTHOR : GET_POSTS, {
+    variables: { options: { sortBy, sortOrder } },
+  })
+
+  const posts = postsQuery.data?.postsByAuthor ?? postsQuery.data?.posts ?? []
 
   return (
     <div style={{ padding: 8 }}>
