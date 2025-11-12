@@ -6,6 +6,7 @@ import cors from 'cors'
 const app = express()
 import { createServer } from 'node:http'
 import { Server } from 'socket.io'
+import { handleSocket } from './socket.js'
 
 app.use(bodyParser.json())
 app.use(cors())
@@ -21,12 +22,14 @@ const io = new Server(server, {
     origin: '*',
   },
 })
-io.on('connection', (socket) => {
+handleSocket(io)
+/* io.on('connection', (socket) => {
   console.log('user connected:', socket.id)
   socket.on('disconnect', () => {
     console.log('user disconnected:', socket.id)
   })
-})
+}) */
+
 export { server as app }
 
 //export { app }
